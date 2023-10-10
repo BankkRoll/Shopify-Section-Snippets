@@ -1,0 +1,207 @@
+{% comment %}
+  --------------------------------------------------------------
+    Section Name: code-block
+    Author: BankkRoll
+    Description: Advanced CLI Code Block for multiple languages
+    GitHub: https://github.com/BankkRoll/Shopify-Section-Snippets
+    License: MIT
+  --------------------------------------------------------------
+{% endcomment %}
+
+{%- style -%}
+  .mac-cli-container {
+    text-align: left;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_x }}px {{ section.settings.padding_bottom }}px;
+  }
+  .mac-cli {
+    background-color: {{ section.settings.bg_color }};
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+  }
+  .mac-cli-header {
+    background-color: #3b4252;
+    border-radius: 10px 10px 0 0;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+  .mac-cli-header-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  /* Content Style */
+  .mac-cli-content {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    white-space: pre-wrap;
+    counter-reset: linenum;
+  }
+  .mac-cli-line {
+    display: table-row;
+    line-height: 1;
+    counter-increment: linenum;
+  }
+  .mac-cli-line-number {
+    line-height: 1;
+    display: table-cell;
+    text-align: right;
+    width: 4em;
+  }
+  .mac-cli-line-number::before {
+    content: counter(linenum);
+    display: block;
+  }
+  .mac-cli-code {
+    display: table-cell;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.font_size }}px;
+  }
+  .mac-cli-line-number.hidden {
+    display: none;
+  }
+{%- endstyle -%}
+
+<div class="mac-cli-container">
+  <div class="mac-cli">
+    <div class="mac-cli-header">
+      <span class="mac-cli-header-dot red"></span>
+      <span class="mac-cli-header-dot yellow"></span>
+      <span class="mac-cli-header-dot green"></span>
+    </div>
+    <div class="mac-cli-content">
+      {% assign code_lines = section.settings.code_content | newline_to_br | split: '<br />' %}
+      {% for line in code_lines %}
+        <div class="mac-cli-line">
+          <span
+            class="mac-cli-line-number {% unless section.settings.line_numbers_enabled %}hidden{% endunless %}"
+          ></span>
+          <code class="mac-cli-code">{{ line | escape }}</code>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CLI Code Block",
+  "class": "mac-cli-codeblock-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "code_content",
+      "label": "Code Content",
+      "default": "Your code snippet here"
+    },
+    {
+    "type": "select",
+    "id": "language",
+    "label": "Programming Language",
+    "options": [
+        {"value": "python", "label": "Python"},
+        {"value": "javascript", "label": "JavaScript"},
+        {"value": "java", "label": "Java"},
+        {"value": "csharp", "label": "C#"},
+        {"value": "ruby", "label": "Ruby"},
+        {"value": "html", "label": "HTML"},
+        {"value": "css", "label": "CSS"},
+        {"value": "php", "label": "PHP"},
+        {"value": "sql", "label": "SQL"},
+        {"value": "bash", "label": "Bash/Shell"},
+        {"value": "go", "label": "Go"},
+        {"value": "swift", "label": "Swift"},
+        {"value": "kotlin", "label": "Kotlin"},
+        {"value": "rust", "label": "Rust"},
+        {"value": "typescript", "label": "TypeScript"},
+        {"value": "xml", "label": "XML"},
+        {"value": "yaml", "label": "YAML"}
+    ],
+    "default": "python"
+    },
+    {
+      "type": "checkbox",
+      "id": "line_numbers_enabled",
+      "label": "Enable Line Numbers",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 50,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 50,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Padding X-axis",
+      "min": 0,
+      "max": 50,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font Size",
+      "min": 8,
+      "max": 24,
+      "default": 14,
+      "unit": "px",
+      "step": 1
+    },
+    {
+      "type": "color",
+      "id": "dot_red",
+      "label": "Red Dot Color",
+      "default": "#bf616a"
+    },
+    {
+      "type": "color",
+      "id": "dot_yellow",
+      "label": "Yellow Dot Color",
+      "default": "#ebcb8b"
+    },
+    {
+      "type": "color",
+      "id": "dot_green",
+      "label": "Green Dot Color",
+      "default": "#a3be8c"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#2e3440"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Code Block",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
