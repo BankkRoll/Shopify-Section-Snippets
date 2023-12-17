@@ -1,0 +1,264 @@
+{% comment %}
+  --------------------------------------------------------------
+    Section Name: thirdweb-mint-page
+    Author: Bankkroll
+    Description: Fully responsive section for thirdweb iframe minting.
+    GitHub: https://github.com/BankkRoll/Shopify-Section-Snippets
+    License: MIT
+  --------------------------------------------------------------
+{% endcomment %}
+
+{%- style -%}
+  .mint-page {
+    display: flex;
+    align-items: {{ section.settings.iframe_vertical_alignment }};
+    justify-content: {{ section.settings.iframe_horizontal_alignment }};
+    padding: {{ section.settings.padding }}px;
+    background-color: {{ section.settings.background_color }};
+    border-radius: {{ section.settings.border_radius }}px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    height: {{ section.settings.container_height }}px;
+  }
+
+  .mint-page__iframe {
+    width: {{ section.settings.iframe_width }}%;
+    height: {{ section.settings.iframe_height }}px;
+    border: {{ section.settings.iframe_border_width }}px solid {{ section.settings.iframe_border_color }};
+    border-radius: {{ section.settings.iframe_border_radius }}px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .mint-page {
+      align-items: {{ section.settings.mobile_iframe_vertical_alignment }};
+      justify-content: {{ section.settings.mobile_iframe_horizontal_alignment }};
+      padding: {{ section.settings.mobile_padding }}px;
+      height: {{ section.settings.mobile_container_height }}px;
+    }
+    .mint-page__iframe {
+      width: {{ section.settings.mobile_iframe_width }}%;
+      height: {{ section.settings.mobile_iframe_height }}px;
+      border-width: {{ section.settings.mobile_iframe_border_width }}px;
+      border-radius: {{ section.settings.mobile_iframe_border_radius }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="mint-page">
+  <iframe class="mint-page__iframe" src="{{ section.settings.iframe_src }}" frameborder="0"></iframe>
+</div>
+
+{% schema %}
+{
+  "name": "thirdweb Mint Page",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop Settings"
+    },
+    {
+      "type": "text",
+      "id": "iframe_src",
+      "label": "Iframe Source URL",
+      "default": "https://embed.ipfscdn.io/ipfs/..."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "iframe_width",
+      "label": "Iframe Width (%)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "iframe_height",
+      "label": "Iframe Height (px)",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "iframe_border_width",
+      "label": "Iframe Border Width (px)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "iframe_border_color",
+      "label": "Iframe Border Color",
+      "default": "#F8F8F8"
+    },
+    {
+      "type": "range",
+      "id": "iframe_border_radius",
+      "label": "Iframe Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "iframe_horizontal_alignment",
+      "label": "Iframe Horizontal Alignment",
+      "options": [
+        {"value": "flex-start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "flex-end", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "iframe_vertical_alignment",
+      "label": "Iframe Vertical Alignment",
+      "options": [
+        {"value": "flex-start", "label": "Top"},
+        {"value": "center", "label": "Center"},
+        {"value": "flex-end", "label": "Bottom"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "container_height",
+      "label": "Container Height (px)",
+      "min": 100,
+      "max": 2000,
+      "step": 20,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_iframe_width",
+      "label": "Mobile Iframe Width (%)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 98
+    },
+    {
+      "type": "range",
+      "id": "mobile_iframe_height",
+      "label": "Mobile Iframe Height (px)",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "mobile_iframe_border_width",
+      "label": "Mobile Iframe Border Width (px)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "mobile_iframe_border_radius",
+      "label": "Mobile Iframe Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_iframe_horizontal_alignment",
+      "label": "Mobile Iframe Horizontal Alignment",
+      "options": [
+        {"value": "flex-start", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "flex-end", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_iframe_vertical_alignment",
+      "label": "Mobile Iframe Vertical Alignment",
+      "options": [
+        {"value": "flex-start", "label": "Top"},
+        {"value": "center", "label": "Center"},
+        {"value": "flex-end", "label": "Bottom"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding",
+      "label": "Mobile Padding (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_container_height",
+      "label": "Mobile Container Height (px)",
+      "min": 100,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 800
+    }
+  ],
+  "presets": [
+    {
+      "name": "thirdweb Mint Page",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
